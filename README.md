@@ -1,0 +1,2 @@
+# CLI-Team-Listings-Template-Engage
+This application makes use of the command-line and node.js to create a CLI tool that prompts for user input to create a team listings/roster and generates and HTML file that displays different information per team member based on role (e.g. manager, engineer, intern, etc.). The application also leverages automated unit testing via the nodejs Jest package to dynamically verify code passes essential tests for functionality.
