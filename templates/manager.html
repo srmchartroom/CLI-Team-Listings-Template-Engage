@@ -1,16 +1,18 @@
 <div class="card employee-card shadow-lg mx-3 my-3">
   <div class="card-header shadow-sm bg-danger">
-    <h4 class="card-title text-white">{{ name }}</h4>
-    <h3 class="card-title text-white"><i class="fas fa-mug-hot mr-2"></i>{{ role }}</h3>
+    <h5 class="card-title text-white">{{ name }}</h5>
+    <h4 class="card-title text-white"><i class="fas fa-mug-hot mr-2"></i>{{ role }}</h4>
   </div>
   <div class="card-body">
     <ul class="list-group">
-      <li class="list-group-item"><i class="fas fa-id-badge mr-2"></i> <strong>ID:</strong> {{ id }}</li>
+      <li class="list-group-item"><i class="fas fa-id-badge mr-2"></i>&nbsp;<strong>ID:</strong>&nbsp;{{ id }}</li>
       <li class="list-group-item">
-        <i class="fas fa-envelope mr-2"></i> <strong>Email:</strong> <a href="mailto:{{ email }}">{{ email }}</a>
+        <i class="fas fa-envelope mr-2"></i>&nbsp;<strong>Email:</strong> <br />
+        <a href="mailto:{{ email }}">{{ email }}</a>
       </li>
       <li class="list-group-item">
-        <i class="fas fa-phone-alt mr-2"></i> <strong>Office number:</strong> {{ officeNumber }}
+        <i class="fas fa-phone-alt mr-2"></i>&nbsp;<strong>Office #:</strong><br />
+        {{ officeNumber }}
       </li>
     </ul>
   </div>
