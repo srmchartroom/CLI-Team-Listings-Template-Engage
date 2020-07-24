@@ -1,15 +1,18 @@
+//! Get dependencies
 const Manager = require("./lib/Manager.js");
 const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-const util = require("util");
 
-//! render function's components to make team html and output to output folder
+//! Render function's components to make team html and output to output folder
+// Use the path nodejs package to set OUTPUT_DIR var to be based on the directory at the time
 const OUTPUT_DIR = path.resolve(__dirname, "output");
+// Combine dynamic OUTPUT_DIR var with output file "team.html" to use in rendering the final HTML
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
+//! Get dependency for render function to generate the HTML to use in the final team.html output
 const render = require("./lib/htmlRenderer");
 
 //! Create aysc write file variable set to util.promisify
@@ -83,13 +86,15 @@ const questions = [
   },
 ];
 
+//! Function to prompt user via CLI using inquirer & generate new team members; then
+//! when done, render HTML and write it to team.html file in output directory
 function promptUser() {
-  // run inquirer using the previously set questions
+  // Run inquirer using the previously questions array above
   inquirer
     .prompt(questions)
-    // once the questions complete...
+    // Once the questions complete...
     .then((answers) => {
-      // If the role selected is Manager...
+      // If role selected is Manager...
       if (answers.role == "Manager") {
         // ...then create a new Manager instance...
         let empManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
@@ -98,9 +103,9 @@ function promptUser() {
       }
       // If the role selected is Engineer...
       if (answers.role == "Engineer") {
-        // ...then create a new Engineer instance...
+        // ...Create new Engineer instance...
         let empEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
-        // push the new Engineer class instance to the employees array...
+        // ...Push new Engineer to employees array...
         employees.push(empEngineer);
       }
       // If the role selected is Intern...
@@ -118,25 +123,22 @@ function promptUser() {
       } else {
         // ...then show the user a console message that the team is being generated, ...
         console.log("Generating your team...");
-        // ...then set the teamHTML variable to the HTML output from the render() function, ...
-        teamHTML = render(employees);
-        // ...then write the HTML in teamHTML variable to ./output/team.html
+        // ...then create and set teamHTML variable to the HTML output from the render() function, ...
+        let teamHTML = render(employees);
+        // ...then write the HTML in teamHTML variable to ./output/team.html ...
         fs.writeFile(outputPath, teamHTML, function (err) {
-          // catch the error if there is one
+          // ... and catch the error if there is one ...
           if (err) {
             return console.log(err);
           }
-          // ... finally show the user a confirmation message that the HTML file is complete and ready for review.
+          // ... finally show a confirmation message that the HTML file is complete and ready for review.
           console.log("Done! Find your team.html file in the /output directory.");
         });
       }
     });
 }
 
-// Create the HTML holding variable
-let teamHTML = "";
-
-// the kickoff function to run on launch of the index.js file
+//! Kickoff function to run on launch of the index.js file
 async function init() {
   try {
     // run the inquirer promptUser function
@@ -147,5 +149,5 @@ async function init() {
   }
 }
 
-// call the kickoff init() function on opening the app.js file.
+//! Call the kickoff init() function on opening the app.js file.
 init();
